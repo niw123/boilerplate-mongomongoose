@@ -112,9 +112,15 @@ var createAndSavePerson = function(done) {
 // 'arrayOfPeople'.
 
 var createManyPeople = function(arrayOfPeople, done) {
-    
-    done(null/*, data*/);
-    
+  Person.create(arrayOfPeople, (err, data) => {
+    if (err) {
+      console.log(`Failed to save people to database: ${err}`)
+      done(err, data);
+    } else {
+      console.log(`Saved people to database: ${data}`)
+      done(null, data);
+    }
+  })
 };
 
 /** # C[R]UD part II - READ #
