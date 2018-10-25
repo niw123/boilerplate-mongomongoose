@@ -115,7 +115,7 @@ var createManyPeople = function(arrayOfPeople, done) {
   Person.create(arrayOfPeople, (err, data) => {
     if (err) {
       console.log(`Failed to save people to database: ${err}`)
-      done(err, data);
+      done(err, null);
     } else {
       console.log(`Saved people to database: ${data}`)
       done(null, data);
@@ -135,9 +135,16 @@ var createManyPeople = function(arrayOfPeople, done) {
 // Use the function argument `personName` as search key.
 
 var findPeopleByName = function(personName, done) {
-  
-  done(null/*, data*/);
-
+  const query = Person.find({ name: personName })  
+  query.exec((err, data) => {
+    if (err) {
+      console.log(`Failed to find person in database: ${err}`)
+      done(err, null); 
+    } else {
+      console.log(`Found people in database: ${data}`)
+      done(null, data);
+    }
+  })
 };
 
 /** 6) Use `Model.findOne()` */
@@ -150,9 +157,16 @@ var findPeopleByName = function(personName, done) {
 // argument `food` as search key
 
 var findOneByFood = function(food, done) {
-
-  done(null/*, data*/);
-  
+  const query = Person.findOne({ favoriteFoods: food })  
+  query.exec((err, data) => {
+    if (err) {
+      console.log(`Failed to find person in database: ${err}`)
+      done(err, null); 
+    } else {
+      console.log(`Found person in database: ${data}`)
+      done(null, data);
+    }
+  })
 };
 
 /** 7) Use `Model.findById()` */
