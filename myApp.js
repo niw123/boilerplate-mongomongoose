@@ -179,8 +179,16 @@ var findOneByFood = function(food, done) {
 // Use the function argument 'personId' as search key.
 
 var findPersonById = function(personId, done) {
-  
-  done(null/*, data*/);
+  const query = Person.findById(personId)  
+  query.exec((err, data) => {
+    if (err) {
+      console.log(`Failed to find person in database: ${err}`)
+      done(err, null); 
+    } else {
+      console.log(`Found person in database: ${data}`)
+      done(null, data);
+    }
+  })
   
 };
 
